@@ -40,6 +40,6 @@
           run: echo Deploy in PRD
         - name: Checking Vulnerabilities using Snyk
           uses: snyk/actions@0.3.0
-          with:
-            command: code test
+          #with:
+          #  command: code test
           
