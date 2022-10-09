@@ -1,0 +1,45 @@
+  name: DemoNewCD
+  on:
+    workflow_dispatch:
+
+  jobs:
+    build:
+      runs-on: ubuntu-latest
+      steps:
+        - name: Run a one-line script
+          run: echo Running Build
+    
+    deploy-dev:
+      runs-on: ubuntu-latest
+      environment:
+        name: dev
+        url: https://daniel.dev.br
+      needs: build
+      steps:
+        - name: Run a one-line script
+          run: echo Deploy in DEV
+    
+    deploy-hmg:
+      runs-on: ubuntu-latest
+      environment:
+        name: hmg
+        url: https://daniel.dev.br
+      needs: deploy-dev
+      steps:
+        - name: Run a one-line script
+          run:  echo Deploy in HMG
+    
+    deploy-prd:
+      runs-on: ubuntu-latest
+      environment:
+        name: prd
+        url: https://daniel.dev.br
+      needs: deploy-hmg
+      steps:
+        - name: Run a one-line script
+          run: echo Deploy in PRD
+        - name: Checking Vulnerabilities using Snyk
+          uses: snyk/actions@0.3.0
+          with:
+            command: code test
+          
