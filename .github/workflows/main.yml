@@ -39,9 +39,9 @@
         - name: Run a one-line script
           run: echo Deploy in PRD
         - name: Checking Vulnerabilities using Snyk
-          uses: snyk/actions@0.3.0
+          uses: snyk/actions/docker@master
           env:
             SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-          #with:
-          #  command: code test
+          with:
+            command: monitor
           
