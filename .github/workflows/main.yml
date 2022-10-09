@@ -38,10 +38,14 @@
       steps:
         - name: Run a one-line script
           run: echo Deploy in PRD
+          
+        - name: Installing Snyk Dependencies
+          run:  npm i -g snyk-delta
+        
+        - uses: snyk/actions/setup@master
         - name: Checking Vulnerabilities using Snyk
-          uses: snyk/actions/docker@master
+          run:  snyk test --json --print-deps | snyk-delta
           env:
             SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-          with:
-            command: monitor
+
           
